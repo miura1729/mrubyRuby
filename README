@@ -1,0 +1,40 @@
+1. Waht is mrubyRuby
+
+The mrubyRuby is a wrapper of CRuby for mruby. You can use mruby through CRuby.
+What is good it? I create it for joke, but I think it is useful. For example,
+
+  Develop mruby software tools by cruby (Debugger, Inspecter)
+
+  Debug or test mruby using the state of embedded other software
+
+2. Install
+   TODO
+
+3. Sample
+  
+  require 'mruby'
+
+  MRuby.eval('p "foo"')
+
+MRuby.eval invoke mruby and eval argument string.
+This version of mrubyRuby have onlu MRuby.eval method,
+but I have idea about other method sand classes for conroling mruby detailedly.
+
+3. License
+
+  mruby's
+
+4. Author
+
+Miura Hideki
+m-72 at tf6.so-net.ne.jp (e-mail)
+http://twitter.com/miura1729    (twitter)
+http://d.hatena.ne.jp/miura1729 (blog in japanese)   
+
+5. Acknowledgement
+
+  Mr. Fuji Goro (@__gfx__) gives me a very good advice about symbol 
+  conflict between mruby and CRuby.
+
+  I thanks Matz and Ruby community members for creating mruby and CRuby.
+
