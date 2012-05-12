@@ -24,7 +24,7 @@ struct mrRString {
   size_t len;
   union {
     size_t capa;
-    mrb_value shared;
+    mrb_value *shared;
   } aux;
   char *buf;
 };
