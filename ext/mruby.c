@@ -236,6 +236,7 @@ mruby_to_a(VALUE self)
     a_proc = rb_ary_new();
     for (j = 0; j < irep->ilen; j++) {
       a_inst = rb_ary_new();
+      rb_ary_push(a_inst, INT2FIX(irep->iseq[j]));
       rb_ary_push(a_inst, ID2SYM(rb_intern(op_names[irep->iseq[j] & 0x7f])));
       rb_ary_push(a_proc, a_inst);
     }
