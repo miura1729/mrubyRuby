@@ -2,6 +2,7 @@
 #define st_foreach_safe mruby_st_foreach_safe
 #define RBasic mruby_RBasic
 #define RObject mruby_RObject
+#define rb_raise mruby_raise
 #include "mruby.h"
 #include "mruby/proc.h"
 #include "compile.h"
