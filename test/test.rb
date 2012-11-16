@@ -15,7 +15,9 @@ p MRuby.eval('"foo"')
 p MRuby.eval('1.9')
 p MRuby.eval('[1, 2, 3]')
 
+=begin
 a = MRuby.new
 p a
 p a.gen_code("p 1").to_a
+=end
 

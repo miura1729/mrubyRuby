@@ -5,22 +5,22 @@
 #define rb_raise mruby_raise
 #include "mruby.h"
 #include "mruby/proc.h"
-#include "compile.h"
-#include "dump.h"
+#include "mruby/compile.h"
+#include "mruby/dump.h"
 #include "stdio.h"
 #include "string.h"
 
 VALUE mruby_cMRuby = Qnil;
 
 struct mrRArray {
-  MRUBY_OBJECT_HEADER;
+  MRB_OBJECT_HEADER;
   size_t len;
   size_t capa;
   mrb_value *buf;
 };
 
 struct mrRString {
-  MRUBY_OBJECT_HEADER;
+  MRB_OBJECT_HEADER;
   size_t len;
   union {
     size_t capa;
@@ -90,10 +90,12 @@ VALUE mruby_eval(VALUE self, VALUE prog) {
   int n = -1;
   mrb_state *mrb = mrb_open();
   struct mrb_parser_state *p;
+  mrbc_context *c = mrbc_context_new(mrb);
   mrb_value rc;
 
-  p = mrb_parse_string(mrb, StringValueCStr(prog));
-  n = mrb_generate_code(mrb, p->tree);
+  p = mrb_parse_string(mrb, StringValueCStr(prog), c);
+  n = mrb_generate_code(mrb, p);
+  mrbc_context_free(mrb, c);
   mrb_pool_close(p->pool);
   if (n >= 0) {
     rc = mrb_run(mrb, mrb_proc_new(mrb, mrb->irep[n]), mrb_nil_value());
@@ -115,9 +117,12 @@ mruby_gen_code(VALUE self, VALUE prog)
   int n = -1;
   mrb_state *mrb = (mrb_state *)DATA_PTR(self);
   struct mrb_parser_state *p;
+  mrbc_context *c = mrbc_context_new(mrb);
 
-  p = mrb_parse_string(mrb, StringValueCStr(prog));
-  n = mrb_generate_code(mrb, p->tree);
+  p = mrb_parse_string(mrb, StringValueCStr(prog), c);
+  n = mrb_generate_code(mrb, p);
+
+  mrbc_context_free(mrb, c);
   mrb_pool_close(p->pool);
 
   return self;
